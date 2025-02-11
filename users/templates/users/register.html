@@ -1,0 +1,109 @@
+{% extends "users/base_styles.html" %}
+{% load static %}
+
+{% block title %}Creación de cuenta{% endblock title%}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="form-content my-3 p-3">
+		<div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card shadow-lg border-0 rounded-lg mt-0 mb-5">
+                        <div class="card-header justify-content-center">
+                        	<h3 class="font-weight-bold my-4 text-center">Creación de cuenta</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST">
+                                {% csrf_token %}
+                                {% if form.errors %}
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <div id="form_errors">
+                                            {% for key, value in form.errors.items %}
+                                                <strong>{{ value }}</strong>
+                                            {% endfor %}
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                {% endif %}
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1"><b>Nombre</b></label>
+                                            {{ form.first_name }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1"><b>Apellido</b></label>
+                                            {{ form.last_name }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+		                                <div class="form-group">
+		                                	<label class="small mb-1"><b>Nombre de usuario</b></label>
+		                                    {{ form.username }}
+		                                </div>
+		                            </div>
+                                    <div class="col-md-6">
+		                                <div class="form-group">
+		                                	<label class="small mb-1"><b>Correo electrónico</b></label>
+		                                    {{ form.email }}
+		                                </div>
+		                            </div>
+		                        </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1"><b>Contraseña</b></label>
+                                            <div class="input-group">
+                                                {{ form.password1 }}
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-danger toggle-password" type="button">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            {{ form.errors.password }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1"><b>Confirmar contraseña</b></label>
+                                            <div class="input-group">
+                                                {{ form.password2 }}
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-danger toggle-password" type="button">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="form-group mt-4 mb-0">
+                                    <button type="submit" class="col-md-12 btn btn-danger"><b>Crear cuenta</b></button><br><br>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="small">
+                                <a href="{% url 'login' %}">¿Tienes una cuenta? Ir a Iniciar sesión</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+    <!-- Password visibility toggle -->
+    <script src="{% static 'js/register.js' %}"></script>
+{% endblock content %}
